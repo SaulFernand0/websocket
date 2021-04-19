@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="estilo.css">
+    
+    <title>websocket</title>
+  </head>
+
+  <body style="background-color: #6b6f82;">
+    <div id="caja_principal" style="margin-left: 600px; margin-top: 50px;">
+
+        <div style="background-color: #7b1038; position: absolute; height: 65px; width: 450px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+            <h1 style="color: white; position: absolute; margin-left: 30px; margin-top: 10px; font-size: 20px;">Chat Upeu<div style="border-radius: 50%; border: 1px solid chartreuse; background-color: chartreuse; position: absolute; margin-left: -20px; margin-top: -18px; height: 13px; width: 13px;"></div></h1>
+            <h3 style="color: white; position: absolute; margin-left: 30px; margin-top: 35px; font-size: 13px;">Conectado</h3>
+        </div>
+
+        <div id="chat" style="margin-top: 65px; position: absolute; height: 285px; width: 450px; overflow-y: scroll; background-color: white;">
+            <ul id="messages"></ul> 
+        </div>
+        
+        <div style="position: absolute; background-color: #7b1038; height: 80px; width: 450px; margin-top: 350px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+            <div style="position: absolute; margin-top: 20px"> 
+                <input id="myMessage" type="text" class="form-control" style="height: 37px; border-radius: 50px; margin-left: 15px; width: 360px;">
+                <button id="send" type="button" class="btn btn-primary" style="background-color: white; margin-left: 385px; margin-top: -70px; border-radius: 50%; height: 50px; width: 50px;"><i class="bi bi-chat-left-dots" style="color: #7b1038;"></i></button>
+            </div>
+        </div>
+        
+
+        <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+        
+        <script>
+            const socket = io()
+
+            socket.emit('message', 'Bienvenido al chat!')
+
+            socket.on('message', function(msg) {
+            $('#messages').append('<li>' + msg + '</li>')
+            })
+
+            $('#send').on('click', function() {
+            socket.send($('#myMessage').val());
+            $('#myMessage').val('');
+            })
+        </script>
+    </div>
+</body>
+</html>
